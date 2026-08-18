@@ -239,6 +239,42 @@ section{ padding: 56px 0; }
   display:block; margin-bottom:10px;
 }
 
+/* Video facade (carga liviana: solo miniatura + play, el iframe entra al hacer clic) */
+.video-facade{
+  position: relative;
+  width: 100%;
+  max-width: 900px;
+  margin-inline: auto;
+  aspect-ratio: 16 / 9;
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--navy);
+  cursor: pointer;
+  box-shadow: 0 20px 40px -18px rgba(11,61,102,.35);
+}
+.video-facade img{
+  width: 100%; height: 100%; object-fit: cover;
+  transition: transform .3s ease;
+}
+.video-facade:hover img{ transform: scale(1.03); }
+.video-facade iframe{
+  position:absolute; inset:0; width:100%; height:100%; border:0;
+}
+.video-play{
+  position:absolute; inset:0;
+  display:flex; align-items:center; justify-content:center;
+}
+.video-play svg{
+  width:74px; height:74px;
+  color:#fff;
+  background: var(--orange);
+  border-radius:50%;
+  padding: 18px;
+  box-shadow: 0 8px 20px -6px rgba(0,0,0,.5);
+  transition: transform .15s ease;
+}
+.video-facade:hover .video-play svg{ transform: scale(1.08); }
+
 /* Problema */
 .stat-strip{
   display:grid; gap:16px; margin-top:28px;

@@ -12,6 +12,10 @@
 <link rel="preload" href="assets/style.css" as="style">
 <link rel="stylesheet" href="assets/style.css">
 
+<!-- El video de YouTube se carga bajo demanda; solo pre-conectamos para que el clic sea instantáneo -->
+<link rel="preconnect" href="https://i.ytimg.com">
+<link rel="preconnect" href="https://www.youtube-nocookie.com">
+
 <link rel="icon" href="assets/img/favicon.ico" sizes="any">
 <link rel="icon" href="assets/img/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="icon" href="assets/img/favicon-192.png" type="image/png" sizes="192x192">
@@ -95,6 +99,29 @@
             <div class="msg bot">Te recuerdo 24h y 2h antes, para que no se te olvide 🦷</div>
           </div>
         </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- VIDEO -->
+  <section id="video">
+    <div class="container">
+      <div class="section-head" style="margin-bottom:22px;">
+        <span class="kicker">Míralo en acción</span>
+        <h2>Así se ve tu clínica funcionando en piloto automático</h2>
+      </div>
+
+      <div class="video-facade" id="videoFacade" data-yt="DHuFLTBMXj8" role="button" tabindex="0" aria-label="Reproducir video: cómo funciona Agenda Odontológica">
+        <img
+          src="https://i.ytimg.com/vi/DHuFLTBMXj8/hqdefault.jpg"
+          srcset="https://i.ytimg.com/vi/DHuFLTBMXj8/hqdefault.jpg 480w, https://i.ytimg.com/vi/DHuFLTBMXj8/maxresdefault.jpg 1280w"
+          sizes="(min-width: 900px) 900px, 100vw"
+          alt="Miniatura del video: cómo funciona el chatbot de Agenda Odontológica"
+          loading="lazy"
+          width="1280" height="720">
+        <span class="video-play" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+        </span>
       </div>
     </div>
   </section>
@@ -308,6 +335,26 @@
 
 <script>
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Video facade: carga el iframe de YouTube solo al hacer clic (mantiene la página liviana)
+  var facade = document.getElementById('videoFacade');
+  if (facade) {
+    var loadVideo = function () {
+      var id = facade.getAttribute('data-yt');
+      var iframe = document.createElement('iframe');
+      iframe.setAttribute('src', 'https://www.youtube-nocookie.com/embed/' + id + '?autoplay=1&rel=0');
+      iframe.setAttribute('title', 'Video: cómo funciona Agenda Odontológica');
+      iframe.setAttribute('frameborder', '0');
+      iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture');
+      iframe.setAttribute('allowfullscreen', '');
+      facade.innerHTML = '';
+      facade.appendChild(iframe);
+    };
+    facade.addEventListener('click', loadVideo);
+    facade.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); loadVideo(); }
+    });
+  }
 </script>
 </body>
 </html>
